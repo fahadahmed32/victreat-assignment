@@ -1,10 +1,6 @@
 import { FaStar } from 'react-icons/fa';
-import type { Book } from '@repo/shared/book';
 import '../styles/search-products.css';
-
-interface SearchProductsProps {
-    books: Book[];
-}
+import { SearchProductsProps } from '../types';
 
 export function SearchProducts({
     books
