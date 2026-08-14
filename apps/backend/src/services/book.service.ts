@@ -34,29 +34,35 @@ export async function fetchBooks(query: string) {
     logger.debug(`Fetched books from Open Library: ${JSON.stringify(openLibraryBooks)}`);
 
     const booksWithRatings = openLibraryBooks.docs.map(async (book) => {
-        const isbn = book.isbn?.[0] || '';
-        let googleBooksRatings = { rating: 0, review_count: 0 };
-        logger.info(`Fetching ratings for book: ${book.title}`);
-        logger.debug(`Fetching ratings for book: ${JSON.stringify(book)}`);
-        if (isbn) {
-            const data = await fetchGoogleBooksRatings(isbn);
-            googleBooksRatings = {
-                rating: data.items?.[0]?.volumeInfo.averageRating || 0,
-                review_count: data.items?.[0]?.volumeInfo.ratingsCount || 0
-            }
-            logger.info(`Fetched ratings for book: ${book.title}`);
-            logger.debug(`Fetched ratings for book: ${JSON.stringify(googleBooksRatings)}`);
-        }
-        else {
-            logger.warn(`Book: ${book.title} has no ISBN`);
-        }
+        try {
 
-        return {
-            openLibraryBook: book,
-            googleBooksRating: googleBooksRatings
+            const isbn = book.isbn?.[0] || '';
+            let googleBooksRatings = { rating: 0, review_count: 0 };
+            logger.info(`Fetching ratings for book: ${book.title}`);
+            logger.debug(`Fetching ratings for book: ${JSON.stringify(book)}`);
+            if (isbn) {
+                const data = await fetchGoogleBooksRatings(isbn);
+                googleBooksRatings = {
+                    rating: data.items?.[0]?.volumeInfo.averageRating || 0,
+                    review_count: data.items?.[0]?.volumeInfo.ratingsCount || 0
+                }
+                logger.info(`Fetched ratings for book: ${book.title}`);
+                logger.debug(`Fetched ratings for book: ${JSON.stringify(googleBooksRatings)}`);
+            }
+            else {
+                logger.warn(`Book: ${book.title} has no ISBN`);
+            }
+
+            return {
+                openLibraryBook: book,
+                googleBooksRating: googleBooksRatings
+            }
+        } catch (error) {
+            logger.warn("Skipping book due to request failed: " + book.title);
+            return null
         }
     })
 
     const books = await Promise.all(booksWithRatings);
-    return books;
+    return books.filter((book) => book !== null);
 }
