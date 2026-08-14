@@ -4,7 +4,20 @@ import { OpenLibraryResponse, GoogleBooksResponse } from "../types";
 import logger from "../config/logger"
 
 async function fetchOpenLibraryBooks(query: string): Promise<OpenLibraryResponse> {
-    const res = await openLibraryAxiosInstance.get(`/search.json?q=${query}&limit=10`);
+    const res = await openLibraryAxiosInstance.get(`/search.json?q=${query}&limit=10`, {
+        params: {
+            q: query,
+            limit: 10,
+            fields: [
+                'key',
+                'title',
+                'author_name',
+                'isbn',
+                'cover_i',
+                'first_publish_year'
+            ].join(',')
+        }
+    });
     const data = res.data;
     return data;
 }
