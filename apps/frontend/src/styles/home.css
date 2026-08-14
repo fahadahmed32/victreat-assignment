@@ -1,0 +1,23 @@
+.homepage {
+    width: 100%;
+    min-height: 100vh;
+    padding: 0 4rem;
+    background-color: var(--background-color);
+    color: var(--secondary-color);
+    overflow: hidden;
+}
+
+.homepage-message,
+.homepage-error {
+    margin: 0 3rem 2rem;
+}
+
+.homepage-error {
+    color: #c62828;
+}
+
+@media screen and (max-width: 550px) {
+    .homepage {
+        padding: 0 1rem;
+    }
+}

@@ -1,6 +1,11 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
+        "paths": {
+            "@repo/shared/*": [
+                "shared/*"
+            ]
+        },
         "rootDir": ".",
         "sourceMap": true,
         "declaration": false,
@@ -17,7 +22,6 @@
         "skipLibCheck": true,
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
-        "paths": {}
     },
     "exclude": [
         "node_modules",
