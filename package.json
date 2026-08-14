@@ -2,7 +2,11 @@
   "name": "@victreat-assignment/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build:backend": "npx nx build backend",
+    "start:backend": "node dist/apps/backend/src/server.js",
+    "dev": "npx nx serve backend"
+  },
   "private": true,
   "devDependencies": {
     "@nx/js": "^23.1.1",
@@ -10,11 +14,20 @@
     "@nx/react": "^23.1.1",
     "@nx/workspace": "23.1.1",
     "@swc/helpers": "~0.5.18",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.2.0",
     "nx": "23.1.1",
     "typescript": "~6.0.3"
   },
   "dependencies": {
+    "@types/winston": "^2.4.4",
+    "axios": "^1.19.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express-rate-limit": "^8.6.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "winston": "^3.19.0"
   }
 }
