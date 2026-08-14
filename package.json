@@ -1,11 +1,14 @@
 {
   "name": "@victreat-assignment/source",
   "version": "0.0.0",
+  "packageManager": "npm@11.6.2",
   "license": "MIT",
   "scripts": {
-    "build:backend": "npx nx build backend",
+    "build": "nx build backend",
+    "build:backend": "nx build backend",
+    "start": "node dist/apps/backend/src/server.js",
     "start:backend": "node dist/apps/backend/src/server.js",
-    "dev": "npx nx serve backend"
+    "dev": "nx serve backend"
   },
   "private": true,
   "devDependencies": {
